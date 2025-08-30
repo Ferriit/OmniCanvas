@@ -44,3 +44,8 @@
 main
 emsdk/*
 emsdk/
+
+
+# Added by cargo
+
+/target
