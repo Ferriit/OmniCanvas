@@ -4,7 +4,6 @@
 
 omnicanvas::omnicanvas(int (*UpdateFunc)(const std::vector<SDL_Event>&), int (*StartFunc)()): UpdateFunc(UpdateFunc), StartFunc(StartFunc) {};
 
-#ifndef __EMSCRIPTEN__
 int omnicanvas::initSDL() {
     if (!SDL_Init(SDL_INIT_VIDEO)) {
         SDL_Log("SDL_Init Error: %s", SDL_GetError());
@@ -53,26 +52,3 @@ int omnicanvas::initSDL() {
     return 0;
 }
 
-#endif
-
-#ifdef __EMSCRIPTEN__
-
-int omnicanvas::initWASM() {
-    EMSCRIPTEN_RESULT r;
-
-    // Bind to canvas by ID
-    EMSCRIPTEN_WEBGL_CONTEXT_HANDLE ctx;
-    EmscriptenWebGLContextAttributes attr;
-    emscripten_webgl_init_context_attributes(&attr);
-
-    ctx = emscripten_webgl_create_context("#myCanvas", &attr);
-    if (ctx <= 0) {
-        printf("Failed to create WebGL context\n");
-        return 1;
-    }
-
-    emscripten_webgl_make_context_current(ctx);
-    printf("Canvas initialized!\n");
-}
-
-#endif

@@ -1,5 +1,4 @@
 #include "headers/omnicanvas.hpp"
-#include <SDL3/SDL_events.h>
 #include <iostream>
 
 int update(const std::vector<SDL_Event>& events) {
